@@ -1,8 +1,6 @@
 const express = require("express");
 
-const {
-    getDashboardData,
-} = require("../controllers/dashboard.controller");
+const { getDashboardData } = require("../controllers/dashboard.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");
 

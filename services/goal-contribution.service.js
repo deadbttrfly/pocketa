@@ -25,11 +25,7 @@ async function getContributions(userId, goalId) {
   return rows.map(formatContribution);
 }
 
-async function getContributionById(
-  userId,
-  goalId,
-  contributionId,
-) {
+async function getContributionById(userId, goalId, contributionId) {
   const [rows] = await db.execute(
     `
       SELECT
@@ -63,7 +59,6 @@ async function createContribution(
   contributionDate,
   note,
 ) {
-  // Pastikan goal memang milik user yang sedang login.
   const [goals] = await db.execute(
     `
       SELECT id
@@ -88,26 +83,13 @@ async function createContribution(
       )
       VALUES (?, ?, ?, ?)
     `,
-    [
-      goalId,
-      amount,
-      contributionDate,
-      note || null,
-    ],
+    [goalId, amount, contributionDate, note || null],
   );
 
-  return getContributionById(
-    userId,
-    goalId,
-    result.insertId,
-  );
+  return getContributionById(userId, goalId, result.insertId);
 }
 
-async function deleteContribution(
-  userId,
-  goalId,
-  contributionId,
-) {
+async function deleteContribution(userId, goalId, contributionId) {
   const [result] = await db.execute(
     `
       DELETE gc

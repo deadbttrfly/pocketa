@@ -1,8 +1,8 @@
 const pool = require("../config/db");
 
 async function getAllBudgets(userId) {
-    const [rows] = await pool.query(
-        `
+  const [rows] = await pool.query(
+    `
         SELECT
             b.id,
             b.category_id,
@@ -20,18 +20,15 @@ async function getAllBudgets(userId) {
             b.start_date DESC,
             b.created_at DESC
         `,
-        [userId]
-    );
+    [userId],
+  );
 
-    return rows;
+  return rows;
 }
 
-async function getBudgetById(
-    userId,
-    budgetId
-) {
-    const [rows] = await pool.query(
-        `
+async function getBudgetById(userId, budgetId) {
+  const [rows] = await pool.query(
+    `
         SELECT
             b.id,
             b.category_id,
@@ -48,21 +45,15 @@ async function getBudgetById(
         AND b.user_id = ?
         LIMIT 1
         `,
-        [budgetId, userId]
-    );
+    [budgetId, userId],
+  );
 
-    return rows[0];
+  return rows[0];
 }
 
-async function createBudget(
-    userId,
-    categoryId,
-    amount,
-    startDate,
-    endDate
-) {
-    const [categories] = await pool.query(
-        `
+async function createBudget(userId, categoryId, amount, startDate, endDate) {
+  const [categories] = await pool.query(
+    `
         SELECT
             id,
             name,
@@ -72,25 +63,21 @@ async function createBudget(
         AND user_id = ?
         LIMIT 1
         `,
-        [categoryId, userId]
-    );
+    [categoryId, userId],
+  );
 
-    const category = categories[0];
+  const category = categories[0];
 
-    if (!category) {
-        throw new Error(
-            "CATEGORY_NOT_FOUND"
-        );
-    }
+  if (!category) {
+    throw new Error("CATEGORY_NOT_FOUND");
+  }
 
-    if (category.type !== "expense") {
-        throw new Error(
-            "CATEGORY_NOT_EXPENSE"
-        );
-    }
+  if (category.type !== "expense") {
+    throw new Error("CATEGORY_NOT_EXPENSE");
+  }
 
-    const [result] = await pool.query(
-        `
+  const [result] = await pool.query(
+    `
         INSERT INTO budgets
             (
                 user_id,
@@ -102,32 +89,22 @@ async function createBudget(
         VALUES
             (?, ?, ?, ?, ?)
         `,
-        [
-            userId,
-            categoryId,
-            amount,
-            startDate,
-            endDate,
-        ]
-    );
+    [userId, categoryId, amount, startDate, endDate],
+  );
 
-    return getBudgetById(
-        userId,
-        result.insertId
-    );
+  return getBudgetById(userId, result.insertId);
 }
 
 async function updateBudget(
-    userId,
-    budgetId,
-    categoryId,
-    amount,
-    startDate,
-    endDate
+  userId,
+  budgetId,
+  categoryId,
+  amount,
+  startDate,
+  endDate,
 ) {
-    const [existingBudgets] =
-        await pool.query(
-            `
+  const [existingBudgets] = await pool.query(
+    `
             SELECT
                 id
             FROM budgets
@@ -135,15 +112,15 @@ async function updateBudget(
             AND user_id = ?
             LIMIT 1
             `,
-            [budgetId, userId]
-        );
+    [budgetId, userId],
+  );
 
-    if (!existingBudgets[0]) {
-        return null;
-    }
+  if (!existingBudgets[0]) {
+    return null;
+  }
 
-    const [categories] = await pool.query(
-        `
+  const [categories] = await pool.query(
+    `
         SELECT
             id,
             name,
@@ -153,25 +130,21 @@ async function updateBudget(
         AND user_id = ?
         LIMIT 1
         `,
-        [categoryId, userId]
-    );
+    [categoryId, userId],
+  );
 
-    const category = categories[0];
+  const category = categories[0];
 
-    if (!category) {
-        throw new Error(
-            "CATEGORY_NOT_FOUND"
-        );
-    }
+  if (!category) {
+    throw new Error("CATEGORY_NOT_FOUND");
+  }
 
-    if (category.type !== "expense") {
-        throw new Error(
-            "CATEGORY_NOT_EXPENSE"
-        );
-    }
+  if (category.type !== "expense") {
+    throw new Error("CATEGORY_NOT_EXPENSE");
+  }
 
-    await pool.query(
-        `
+  await pool.query(
+    `
         UPDATE budgets
         SET
             category_id = ?,
@@ -181,42 +154,29 @@ async function updateBudget(
         WHERE id = ?
         AND user_id = ?
         `,
-        [
-            categoryId,
-            amount,
-            startDate,
-            endDate,
-            budgetId,
-            userId,
-        ]
-    );
+    [categoryId, amount, startDate, endDate, budgetId, userId],
+  );
 
-    return getBudgetById(
-        userId,
-        budgetId
-    );
+  return getBudgetById(userId, budgetId);
 }
 
-async function deleteBudget(
-    userId,
-    budgetId
-) {
-    const [result] = await pool.query(
-        `
+async function deleteBudget(userId, budgetId) {
+  const [result] = await pool.query(
+    `
         DELETE FROM budgets
         WHERE id = ?
         AND user_id = ?
         `,
-        [budgetId, userId]
-    );
+    [budgetId, userId],
+  );
 
-    return result.affectedRows > 0;
+  return result.affectedRows > 0;
 }
 
 module.exports = {
-    getAllBudgets,
-    getBudgetById,
-    createBudget,
-    updateBudget,
-    deleteBudget,
+  getAllBudgets,
+  getBudgetById,
+  createBudget,
+  updateBudget,
+  deleteBudget,
 };

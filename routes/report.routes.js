@@ -15,18 +15,10 @@ router.get("/summary", authMiddleware, getSummary);
 
 router.get("/income-expense", authMiddleware, getIncomeExpense);
 
-router.get(
-  "/expenses-by-category",
-  authMiddleware,
-  getExpensesByCategory
-);
+router.get("/expenses-by-category", authMiddleware, getExpensesByCategory);
 
 router.get("/monthly-trend", authMiddleware, getMonthlyTrend);
 
-router.get(
-  "/budget-performance",
-  authMiddleware,
-  getBudgetPerformance
-);
+router.get("/budget-performance", authMiddleware, getBudgetPerformance);
 
 module.exports = router;

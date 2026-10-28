@@ -1,8 +1,8 @@
 const pool = require("../config/db");
 
 async function getDashboardSummary(userId) {
-    const [rows] = await pool.query(
-        `
+  const [rows] = await pool.query(
+    `
         SELECT
             COALESCE(
                 (
@@ -38,15 +38,15 @@ async function getDashboardSummary(userId) {
                 0
             ) AS expense
         `,
-        [userId, userId, userId]
-    );
+    [userId, userId, userId],
+  );
 
-    return rows[0];
+  return rows[0];
 }
 
 async function getExpenseByCategory(userId) {
-    const [rows] = await pool.query(
-        `
+  const [rows] = await pool.query(
+    `
         SELECT
             c.id AS category_id,
             c.name AS category_name,
@@ -65,15 +65,15 @@ async function getExpenseByCategory(userId) {
             c.name
         ORDER BY amount DESC
         `,
-        [userId, userId]
-    );
+    [userId, userId],
+  );
 
-    return rows;
+  return rows;
 }
 
 async function getBudgetSummary(userId) {
-    const [rows] = await pool.query(
-        `
+  const [rows] = await pool.query(
+    `
         SELECT
             b.id,
             b.category_id,
@@ -102,24 +102,22 @@ async function getBudgetSummary(userId) {
 
         ORDER BY b.start_date DESC
         `,
-        [userId, userId]
-    );
+    [userId, userId],
+  );
 
-    return rows.map((budget) => ({
-        id: budget.id,
-        category_id: budget.category_id,
-        category_name: budget.category_name,
-        budget: budget.budget,
-        spent: budget.spent,
-        remaining:
-            Number(budget.budget) -
-            Number(budget.spent),
-    }));
+  return rows.map((budget) => ({
+    id: budget.id,
+    category_id: budget.category_id,
+    category_name: budget.category_name,
+    budget: budget.budget,
+    spent: budget.spent,
+    remaining: Number(budget.budget) - Number(budget.spent),
+  }));
 }
 
 async function getRecentTransactions(userId) {
-    const [rows] = await pool.query(
-        `
+  const [rows] = await pool.query(
+    `
         SELECT
             t.id,
             t.category_id,
@@ -138,35 +136,29 @@ async function getRecentTransactions(userId) {
             t.created_at DESC
         LIMIT 5
         `,
-        [userId]
-    );
+    [userId],
+  );
 
-    return rows;
+  return rows;
 }
 
 async function getDashboard(userId) {
-    const [
-        summary,
-        expenseByCategory,
-        budgets,
-        recentTransactions,
-    ] = await Promise.all([
-        getDashboardSummary(userId),
-        getExpenseByCategory(userId),
-        getBudgetSummary(userId),
-        getRecentTransactions(userId),
+  const [summary, expenseByCategory, budgets, recentTransactions] =
+    await Promise.all([
+      getDashboardSummary(userId),
+      getExpenseByCategory(userId),
+      getBudgetSummary(userId),
+      getRecentTransactions(userId),
     ]);
 
-    return {
-        summary,
-        expense_by_category:
-            expenseByCategory,
-        budgets,
-        recent_transactions:
-            recentTransactions,
-    };
+  return {
+    summary,
+    expense_by_category: expenseByCategory,
+    budgets,
+    recent_transactions: recentTransactions,
+  };
 }
 
 module.exports = {
-    getDashboard,
+  getDashboard,
 };

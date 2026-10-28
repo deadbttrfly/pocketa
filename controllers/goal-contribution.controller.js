@@ -12,21 +12,17 @@ async function getContributions(req, res) {
       });
     }
 
-    const contributions =
-      await goalContributionService.getContributions(
-        userId,
-        goalId,
-      );
+    const contributions = await goalContributionService.getContributions(
+      userId,
+      goalId,
+    );
 
     return res.status(200).json({
       success: true,
       data: contributions,
     });
   } catch (error) {
-    console.error(
-      "Get contributions error:",
-      error,
-    );
+    console.error("Get contributions error:", error);
 
     return res.status(500).json({
       success: false,
@@ -39,36 +35,27 @@ async function getContributionById(req, res) {
   try {
     const userId = req.user.id;
     const goalId = Number(req.params.goalId);
-    const contributionId = Number(
-      req.params.id,
-    );
+    const contributionId = Number(req.params.id);
 
-    if (
-      !Number.isInteger(goalId) ||
-      goalId <= 0
-    ) {
+    if (!Number.isInteger(goalId) || goalId <= 0) {
       return res.status(400).json({
         success: false,
         message: "Invalid goal ID",
       });
     }
 
-    if (
-      !Number.isInteger(contributionId) ||
-      contributionId <= 0
-    ) {
+    if (!Number.isInteger(contributionId) || contributionId <= 0) {
       return res.status(400).json({
         success: false,
         message: "Invalid contribution ID",
       });
     }
 
-    const contribution =
-      await goalContributionService.getContributionById(
-        userId,
-        goalId,
-        contributionId,
-      );
+    const contribution = await goalContributionService.getContributionById(
+      userId,
+      goalId,
+      contributionId,
+    );
 
     if (!contribution) {
       return res.status(404).json({
@@ -82,10 +69,7 @@ async function getContributionById(req, res) {
       data: contribution,
     });
   } catch (error) {
-    console.error(
-      "Get contribution error:",
-      error,
-    );
+    console.error("Get contribution error:", error);
 
     return res.status(500).json({
       success: false,
@@ -99,40 +83,28 @@ async function createContribution(req, res) {
     const userId = req.user.id;
     const goalId = Number(req.params.goalId);
 
-    if (
-      !Number.isInteger(goalId) ||
-      goalId <= 0
-    ) {
+    if (!Number.isInteger(goalId) || goalId <= 0) {
       return res.status(400).json({
         success: false,
         message: "Invalid goal ID",
       });
     }
 
-    const {
-      amount,
-      contribution_date,
-      note,
-    } = req.body;
+    const { amount, contribution_date, note } = req.body;
 
     const contributionAmount = Number(amount);
 
-    if (
-      !Number.isFinite(contributionAmount) ||
-      contributionAmount <= 0
-    ) {
+    if (!Number.isFinite(contributionAmount) || contributionAmount <= 0) {
       return res.status(400).json({
         success: false,
-        message:
-          "Contribution amount must be greater than 0",
+        message: "Contribution amount must be greater than 0",
       });
     }
 
     if (!contribution_date) {
       return res.status(400).json({
         success: false,
-        message:
-          "Contribution date is required",
+        message: "Contribution date is required",
       });
     }
 
@@ -145,25 +117,20 @@ async function createContribution(req, res) {
       });
     }
 
-    if (
-      note !== undefined &&
-      note !== null &&
-      typeof note !== "string"
-    ) {
+    if (note !== undefined && note !== null && typeof note !== "string") {
       return res.status(400).json({
         success: false,
         message: "Note must be a string",
       });
     }
 
-    const contribution =
-      await goalContributionService.createContribution(
-        userId,
-        goalId,
-        contributionAmount,
-        contribution_date,
-        note?.trim() || null,
-      );
+    const contribution = await goalContributionService.createContribution(
+      userId,
+      goalId,
+      contributionAmount,
+      contribution_date,
+      note?.trim() || null,
+    );
 
     if (!contribution) {
       return res.status(404).json({
@@ -174,15 +141,11 @@ async function createContribution(req, res) {
 
     return res.status(201).json({
       success: true,
-      message:
-        "Contribution created successfully",
+      message: "Contribution created successfully",
       data: contribution,
     });
   } catch (error) {
-    console.error(
-      "Create contribution error:",
-      error,
-    );
+    console.error("Create contribution error:", error);
 
     return res.status(500).json({
       success: false,
@@ -195,36 +158,27 @@ async function deleteContribution(req, res) {
   try {
     const userId = req.user.id;
     const goalId = Number(req.params.goalId);
-    const contributionId = Number(
-      req.params.id,
-    );
+    const contributionId = Number(req.params.id);
 
-    if (
-      !Number.isInteger(goalId) ||
-      goalId <= 0
-    ) {
+    if (!Number.isInteger(goalId) || goalId <= 0) {
       return res.status(400).json({
         success: false,
         message: "Invalid goal ID",
       });
     }
 
-    if (
-      !Number.isInteger(contributionId) ||
-      contributionId <= 0
-    ) {
+    if (!Number.isInteger(contributionId) || contributionId <= 0) {
       return res.status(400).json({
         success: false,
         message: "Invalid contribution ID",
       });
     }
 
-    const deleted =
-      await goalContributionService.deleteContribution(
-        userId,
-        goalId,
-        contributionId,
-      );
+    const deleted = await goalContributionService.deleteContribution(
+      userId,
+      goalId,
+      contributionId,
+    );
 
     if (!deleted) {
       return res.status(404).json({
@@ -235,19 +189,14 @@ async function deleteContribution(req, res) {
 
     return res.status(200).json({
       success: true,
-      message:
-        "Contribution deleted successfully",
+      message: "Contribution deleted successfully",
     });
   } catch (error) {
-    console.error(
-      "Delete contribution error:",
-      error,
-    );
+    console.error("Delete contribution error:", error);
 
     return res.status(500).json({
       success: false,
-      message:
-        "Failed to delete contribution",
+      message: "Failed to delete contribution",
     });
   }
 }

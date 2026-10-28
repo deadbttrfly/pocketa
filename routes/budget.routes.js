@@ -1,11 +1,11 @@
 const express = require("express");
 
 const {
-    getBudgets,
-    getBudget,
-    create,
-    update,
-    remove,
+  getBudgets,
+  getBudget,
+  create,
+  update,
+  remove,
 } = require("../controllers/budget.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");

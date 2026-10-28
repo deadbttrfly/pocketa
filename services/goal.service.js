@@ -73,13 +73,7 @@ async function getGoalById(userId, goalId) {
   return formatGoal(rows[0]);
 }
 
-async function createGoal(
-  userId,
-  name,
-  description,
-  targetAmount,
-  targetDate,
-) {
+async function createGoal(userId, name, description, targetAmount, targetDate) {
   const [result] = await db.execute(
     `
       INSERT INTO goals (
@@ -91,13 +85,7 @@ async function createGoal(
       )
       VALUES (?, ?, ?, ?, ?)
     `,
-    [
-      userId,
-      name,
-      description || null,
-      targetAmount,
-      targetDate || null,
-    ],
+    [userId, name, description || null, targetAmount, targetDate || null],
   );
 
   return getGoalById(userId, result.insertId);
@@ -159,18 +147,10 @@ function formatGoal(goal) {
   const targetAmount = Number(goal.target_amount);
   const currentAmount = Number(goal.current_amount);
 
-  const remainingAmount = Math.max(
-    targetAmount - currentAmount,
-    0,
-  );
+  const remainingAmount = Math.max(targetAmount - currentAmount, 0);
 
   const progressPercentage =
-    targetAmount > 0
-      ? Math.min(
-          (currentAmount / targetAmount) * 100,
-          100,
-        )
-      : 0;
+    targetAmount > 0 ? Math.min((currentAmount / targetAmount) * 100, 100) : 0;
 
   return {
     id: goal.id,
@@ -179,9 +159,7 @@ function formatGoal(goal) {
     target_amount: goal.target_amount,
     current_amount: currentAmount.toFixed(2),
     remaining_amount: remainingAmount.toFixed(2),
-    progress_percentage: Number(
-      progressPercentage.toFixed(2),
-    ),
+    progress_percentage: Number(progressPercentage.toFixed(2)),
     target_date: goal.target_date,
     status: goal.status,
     created_at: goal.created_at,

@@ -4,45 +4,45 @@ const recurringTransactionController = require("../controllers/recurring-transac
 const authMiddleware = require("../middleware/auth.middleware");
 
 router.get(
-    "/",
-    authMiddleware,
-    recurringTransactionController.getAllRecurringTransactions
+  "/",
+  authMiddleware,
+  recurringTransactionController.getAllRecurringTransactions,
 );
 
 router.post(
-    "/",
-    authMiddleware,
-    recurringTransactionController.createRecurringTransaction
+  "/",
+  authMiddleware,
+  recurringTransactionController.createRecurringTransaction,
 );
 
 router.post(
-    "/process",
-    authMiddleware,
-    recurringTransactionController.processRecurringTransactions
+  "/process",
+  authMiddleware,
+  recurringTransactionController.processRecurringTransactions,
 );
 
 router.patch(
-    "/:id/status",
-    authMiddleware,
-    recurringTransactionController.updateRecurringTransactionStatus
+  "/:id/status",
+  authMiddleware,
+  recurringTransactionController.updateRecurringTransactionStatus,
 );
 
 router.get(
-    "/:id",
-    authMiddleware,
-    recurringTransactionController.getRecurringTransactionById
+  "/:id",
+  authMiddleware,
+  recurringTransactionController.getRecurringTransactionById,
 );
 
 router.put(
-    "/:id",
-    authMiddleware,
-    recurringTransactionController.updateRecurringTransaction
+  "/:id",
+  authMiddleware,
+  recurringTransactionController.updateRecurringTransaction,
 );
 
 router.delete(
-    "/:id",
-    authMiddleware,
-    recurringTransactionController.deleteRecurringTransaction
+  "/:id",
+  authMiddleware,
+  recurringTransactionController.deleteRecurringTransaction,
 );
 
 module.exports = router;

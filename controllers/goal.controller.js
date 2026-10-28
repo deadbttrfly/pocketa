@@ -1,8 +1,6 @@
 const goalService = require("../services/goal.service");
 
-const {
-  validateRequiredString,
-} = require("../utils/validation");
+const { validateRequiredString } = require("../utils/validation");
 
 function isValidId(id) {
   return /^\d+$/.test(id) && Number(id) > 0;
@@ -35,11 +33,7 @@ function isValidDate(date) {
 }
 
 function validateTargetDate(targetDate) {
-  if (
-    targetDate === undefined ||
-    targetDate === null ||
-    targetDate === ""
-  ) {
+  if (targetDate === undefined || targetDate === null || targetDate === "") {
     return null;
   }
 
@@ -82,10 +76,7 @@ async function getGoalById(req, res) {
       });
     }
 
-    const goal = await goalService.getGoalById(
-      userId,
-      Number(goalId),
-    );
+    const goal = await goalService.getGoalById(userId, Number(goalId));
 
     if (!goal) {
       return res.status(404).json({
@@ -112,18 +103,9 @@ async function createGoal(req, res) {
   try {
     const userId = req.user.id;
 
-    const {
-      name,
-      description,
-      target_amount,
-      target_date,
-    } = req.body;
+    const { name, description, target_amount, target_date } = req.body;
 
-    const nameError = validateRequiredString(
-      name,
-      "Goal name",
-      100,
-    );
+    const nameError = validateRequiredString(name, "Goal name", 100);
 
     if (nameError) {
       return res.status(400).json({
@@ -139,15 +121,11 @@ async function createGoal(req, res) {
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Target amount must be a number greater than 0",
+        message: "Target amount must be a number greater than 0",
       });
     }
 
-    if (
-      description !== undefined &&
-      description !== null
-    ) {
+    if (description !== undefined && description !== null) {
       const descriptionError = validateRequiredString(
         description,
         "Description",
@@ -162,8 +140,7 @@ async function createGoal(req, res) {
       }
     }
 
-    const targetDateError =
-      validateTargetDate(target_date);
+    const targetDateError = validateTargetDate(target_date);
 
     if (targetDateError) {
       return res.status(400).json({
@@ -175,9 +152,7 @@ async function createGoal(req, res) {
     const goal = await goalService.createGoal(
       userId,
       name.trim(),
-      typeof description === "string"
-        ? description.trim()
-        : null,
+      typeof description === "string" ? description.trim() : null,
       target_amount,
       target_date || null,
     );
@@ -209,19 +184,9 @@ async function updateGoal(req, res) {
       });
     }
 
-    const {
-      name,
-      description,
-      target_amount,
-      target_date,
-      status,
-    } = req.body;
+    const { name, description, target_amount, target_date, status } = req.body;
 
-    const nameError = validateRequiredString(
-      name,
-      "Goal name",
-      100,
-    );
+    const nameError = validateRequiredString(name, "Goal name", 100);
 
     if (nameError) {
       return res.status(400).json({
@@ -237,8 +202,7 @@ async function updateGoal(req, res) {
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Target amount must be a number greater than 0",
+        message: "Target amount must be a number greater than 0",
       });
     }
 
@@ -249,28 +213,18 @@ async function updateGoal(req, res) {
       });
     }
 
-    const normalizedStatus = status
-      .trim()
-      .toLowerCase();
+    const normalizedStatus = status.trim().toLowerCase();
 
-    const allowedStatuses = [
-      "active",
-      "completed",
-      "cancelled",
-    ];
+    const allowedStatuses = ["active", "completed", "cancelled"];
 
     if (!allowedStatuses.includes(normalizedStatus)) {
       return res.status(400).json({
         success: false,
-        message:
-          "Status must be active, completed, or cancelled",
+        message: "Status must be active, completed, or cancelled",
       });
     }
 
-    if (
-      description !== undefined &&
-      description !== null
-    ) {
+    if (description !== undefined && description !== null) {
       const descriptionError = validateRequiredString(
         description,
         "Description",
@@ -285,8 +239,7 @@ async function updateGoal(req, res) {
       }
     }
 
-    const targetDateError =
-      validateTargetDate(target_date);
+    const targetDateError = validateTargetDate(target_date);
 
     if (targetDateError) {
       return res.status(400).json({
@@ -299,9 +252,7 @@ async function updateGoal(req, res) {
       userId,
       Number(goalId),
       name.trim(),
-      typeof description === "string"
-        ? description.trim()
-        : null,
+      typeof description === "string" ? description.trim() : null,
       target_amount,
       target_date || null,
       normalizedStatus,
@@ -341,10 +292,7 @@ async function deleteGoal(req, res) {
       });
     }
 
-    const deleted = await goalService.deleteGoal(
-      userId,
-      Number(goalId),
-    );
+    const deleted = await goalService.deleteGoal(userId, Number(goalId));
 
     if (!deleted) {
       return res.status(404).json({

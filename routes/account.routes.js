@@ -1,11 +1,11 @@
 const express = require("express");
 
 const {
-    getAccounts,
-    getAccount,
-    create,
-    update,
-    remove,
+  getAccounts,
+  getAccount,
+  create,
+  update,
+  remove,
 } = require("../controllers/account.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");

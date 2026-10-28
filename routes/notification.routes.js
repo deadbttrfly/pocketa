@@ -1,9 +1,6 @@
-
 const express = require("express");
 
-const notificationController = require(
-    "../controllers/notification.controller"
-);
+const notificationController = require("../controllers/notification.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");
 
@@ -22,4 +19,3 @@ router.patch("/:id/read", notificationController.markRead);
 router.delete("/:id", notificationController.remove);
 
 module.exports = router;
-

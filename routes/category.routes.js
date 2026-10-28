@@ -1,11 +1,11 @@
 const express = require("express");
 
 const {
-    getCategories,
-    getCategory,
-    create,
-    update,
-    remove,
+  getCategories,
+  getCategory,
+  create,
+  update,
+  remove,
 } = require("../controllers/category.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");

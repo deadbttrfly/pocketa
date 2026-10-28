@@ -221,8 +221,6 @@ async function processRecurringTransactions(req, res) {
     const data =
       await recurringTransactionService.processRecurringTransactions(userId);
 
-    // Buat notifikasi hanya untuk transaksi yang benar-benar
-    // berhasil dibuat oleh service, bukan yang dilewati karena duplikat.
     for (const transaction of data.transactions || []) {
       try {
         await notificationService.createNotification({
@@ -251,7 +249,6 @@ async function processRecurringTransactions(req, res) {
   } catch (error) {
     console.error("Process recurring transactions error:", error);
 
-    // Kegagalan notifikasi tidak boleh menutupi error asli.
     try {
       await notificationService.createNotification({
         userId,

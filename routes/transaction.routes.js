@@ -1,11 +1,11 @@
 const express = require("express");
 
 const {
-    getTransactions,
-    getTransaction,
-    create,
-    update,
-    remove,
+  getTransactions,
+  getTransaction,
+  create,
+  update,
+  remove,
 } = require("../controllers/transaction.controller");
 
 const authenticateToken = require("../middleware/auth.middleware");
