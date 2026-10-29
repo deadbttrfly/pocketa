@@ -136,7 +136,7 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label={darkMode ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card/70 text-foreground backdrop-blur transition hover:bg-secondary active:scale-90"
     >
       <svg
@@ -169,7 +169,7 @@ function ThemeToggle() {
 
 function BrandMark({ onPrimary = false }: { onPrimary?: boolean }) {
   return (
-    <Link href="/" aria-label="Beranda Pocketa" className="group inline-flex items-center gap-3">
+    <Link href="/" aria-label="Pocketa home" className="group inline-flex items-center gap-3">
       <span className="relative block h-11 w-11 shrink-0">
         <span
           aria-hidden="true"
@@ -203,9 +203,9 @@ function BrandMark({ onPrimary = false }: { onPrimary?: boolean }) {
 }
 
 const highlights = [
-  "Semua rekeningmu dalam satu tampilan yang jelas",
-  "Anggaran yang memperingatkan sebelum kamu boros",
-  "Target dan laporan yang menjaga keuanganmu tetap di jalur",
+  "All your accounts in one clear view",
+  "Budgets that warn you before you overspend",
+  "Goals and reports that keep your finances on track",
 ];
 
 function ShowcasePanel() {
@@ -228,7 +228,7 @@ function ShowcasePanel() {
           className="lg-rise max-w-md text-4xl font-black leading-[1.12] tracking-tight xl:text-5xl"
           style={{ animationDelay: "200ms" }}
         >
-          Kendalikan setiap rupiahmu.
+          Take control of every rupiah.
         </h2>
 
         <ul className="mt-8 space-y-3.5">
@@ -252,7 +252,7 @@ function ShowcasePanel() {
           style={{ animationDelay: "650ms" }}
         >
           <div className="lg-float absolute left-0 top-0 w-72 rounded-2xl border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
-            <p className="text-xs font-medium opacity-80">Total Saldo</p>
+            <p className="text-xs font-medium opacity-80">Total Balance</p>
             <p className="mt-1 text-2xl font-extrabold tabular-nums">
               {formatRupiah(balance)}
             </p>
@@ -301,15 +301,15 @@ function ShowcasePanel() {
             </div>
 
             <div>
-              <p className="text-sm font-semibold">Makan &amp; Minum</p>
-              <p className="text-xs opacity-80">Anggaran hampir habis</p>
+              <p className="text-sm font-semibold">Food &amp; Drink</p>
+              <p className="text-xs opacity-80">Budget almost used up</p>
             </div>
           </div>
         </div>
       </div>
 
       <p className="relative text-xs opacity-70" suppressHydrationWarning>
-        © {new Date().getFullYear()} Pocketa. Hak cipta dilindungi.
+        © {new Date().getFullYear()} Pocketa. All rights reserved.
       </p>
     </aside>
   );
@@ -347,7 +347,7 @@ export default function LoginPage() {
 
     if (!emailValid) {
       setEmailTouched(true);
-      showError("Silakan masukkan alamat email yang valid.");
+      showError("Please enter a valid email address.");
       emailRef.current?.focus();
       return;
     }
@@ -365,7 +365,7 @@ export default function LoginPage() {
       setSuccess(true);
       router.push("/dashboard");
     } catch (err) {
-      showError(err instanceof Error ? err.message : "Gagal masuk");
+      showError(err instanceof Error ? err.message : "Sign in failed");
       setLoading(false);
     }
   }
@@ -484,14 +484,14 @@ export default function LoginPage() {
                   className="lg-rise text-3xl font-black tracking-tight text-foreground"
                   style={{ animationDelay: "250ms" }}
                 >
-                  Selamat datang kembali
+                  Welcome back
                 </h1>
 
                 <p
                   className="lg-rise mt-2 text-sm text-muted"
                   style={{ animationDelay: "320ms" }}
                 >
-                  Masuk untuk mengelola keuanganmu. Isi detail akun kamu di bawah ini.
+                  Sign in to manage your finances. Enter your account details below.
                 </p>
 
                 {error && (
@@ -537,7 +537,7 @@ export default function LoginPage() {
                         required
                         aria-invalid={showEmailError}
                         aria-describedby={showEmailError ? "email-error" : undefined}
-                        placeholder="kamu@contoh.com"
+                        placeholder="you@example.com"
                         className={`${inputBase} pr-11 ${
                           showEmailError
                             ? "border-danger focus:ring-danger/15"
@@ -554,7 +554,7 @@ export default function LoginPage() {
 
                     {showEmailError && (
                       <p id="email-error" className="mt-1.5 text-xs font-medium text-danger">
-                        Silakan masukkan alamat email yang valid.
+                        Please enter a valid email address.
                       </p>
                     )}
                   </div>
@@ -564,7 +564,7 @@ export default function LoginPage() {
                       htmlFor="password"
                       className="text-sm font-medium text-foreground"
                     >
-                      Kata sandi
+                      Password
                     </label>
 
                     <div className="group/field relative mt-2">
@@ -589,7 +589,7 @@ export default function LoginPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword((current) => !current)}
-                        aria-label={showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                         aria-pressed={showPassword}
                         className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-muted outline-none transition hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary active:scale-90"
                       >
@@ -603,7 +603,7 @@ export default function LoginPage() {
                         className="lg-pop mt-1.5 flex items-center gap-1.5 text-xs font-medium text-amber-500"
                       >
                         {icons.alert}
-                        Caps Lock aktif
+                        Caps Lock is on
                       </p>
                     )}
                   </div>
@@ -623,16 +623,16 @@ export default function LoginPage() {
                           <span className="lg-pop flex h-5 w-5 items-center justify-center rounded-full bg-white/25">
                             {icons.check}
                           </span>
-                          Selamat datang kembali!
+                          Welcome back!
                         </>
                       ) : loading ? (
                         <>
                           <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                          Sedang masuk...
+                          Signing in...
                         </>
                       ) : (
                         <>
-                          Masuk
+                          Sign In
                           <span className="transition-transform duration-300 group-hover:translate-x-0.5">
                             {icons.arrow}
                           </span>
@@ -646,12 +646,12 @@ export default function LoginPage() {
                   className="lg-rise mt-6 text-center text-sm text-muted"
                   style={{ animationDelay: "620ms" }}
                 >
-                  Belum punya akun?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link
                     href="/register"
                     className="font-semibold text-primary underline-offset-4 transition hover:underline"
                   >
-                    Daftar sekarang
+                    Sign up now
                   </Link>
                 </p>
               </div>

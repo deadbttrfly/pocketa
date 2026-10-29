@@ -4,7 +4,12 @@ import ThemeProvider from "@/components/theme/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Pocketa",
-  description: "Personal finance management made simple.",
+  description: "Personal Finance, Refined",
+  icons: {
+    icon: "/pocketa.png",
+    shortcut: "/pocketa.png",
+    apple: "/pocketa.png",
+  },
 };
 
 export default function RootLayout({
@@ -13,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

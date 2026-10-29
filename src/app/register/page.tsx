@@ -30,7 +30,7 @@ function formatRupiah(value: number) {
   }).format(value);
 }
 
-const STRENGTH_LABELS = ["", "Lemah", "Cukup", "Baik", "Kuat"];
+const STRENGTH_LABELS = ["", "Weak", "Fair", "Good", "Strong"];
 const STRENGTH_COLORS = [
   "",
   "bg-danger",
@@ -48,10 +48,10 @@ const STRENGTH_TEXT = [
 
 function getPasswordRules(password: string) {
   return [
-    { label: "Min. 8 karakter", met: password.length >= 8 },
-    { label: "Huruf besar & kecil", met: /[a-z]/.test(password) && /[A-Z]/.test(password) },
-    { label: "Satu angka", met: /\d/.test(password) },
-    { label: "Satu simbol", met: /[^A-Za-z0-9]/.test(password) },
+    { label: "Min. 8 characters", met: password.length >= 8 },
+    { label: "Upper & lowercase", met: /[a-z]/.test(password) && /[A-Z]/.test(password) },
+    { label: "One number", met: /\d/.test(password) },
+    { label: "One symbol", met: /[^A-Za-z0-9]/.test(password) },
   ];
 }
 
@@ -146,13 +146,12 @@ function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label={darkMode ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card/70 text-foreground backdrop-blur transition hover:bg-secondary active:scale-90"
     >
       <svg
-        className={`absolute h-5 w-5 text-amber-400 transition-all duration-500 ${
-          darkMode ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"
-        }`}
+        className={`absolute h-5 w-5 text-amber-400 transition-all duration-500 ${darkMode ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"
+          }`}
         fill="currentColor"
         viewBox="0 0 20 20"
         aria-hidden="true"
@@ -164,9 +163,8 @@ function ThemeToggle() {
         />
       </svg>
       <svg
-        className={`absolute h-5 w-5 transition-all duration-500 ${
-          darkMode ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
-        }`}
+        className={`absolute h-5 w-5 transition-all duration-500 ${darkMode ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"
+          }`}
         fill="currentColor"
         viewBox="0 0 20 20"
         aria-hidden="true"
@@ -179,13 +177,12 @@ function ThemeToggle() {
 
 function BrandMark({ onPrimary = false }: { onPrimary?: boolean }) {
   return (
-    <Link href="/" aria-label="Beranda Pocketa" className="group inline-flex items-center gap-3">
+    <Link href="/" aria-label="Pocketa home" className="group inline-flex items-center gap-3">
       <span className="relative block h-11 w-11 shrink-0">
         <span
           aria-hidden="true"
-          className={`absolute inset-0 rounded-2xl blur-lg transition-opacity duration-300 group-hover:opacity-60 ${
-            onPrimary ? "bg-white opacity-30" : "bg-primary opacity-25"
-          }`}
+          className={`absolute inset-0 rounded-2xl blur-lg transition-opacity duration-300 group-hover:opacity-60 ${onPrimary ? "bg-white opacity-30" : "bg-primary opacity-25"
+            }`}
         />
         <span className="relative block h-full w-full rounded-2xl bg-gradient-to-br from-primary to-success p-px shadow-lg transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105 motion-reduce:transition-none">
           <span className="relative block h-full w-full overflow-hidden rounded-[15px] bg-card">
@@ -202,9 +199,8 @@ function BrandMark({ onPrimary = false }: { onPrimary?: boolean }) {
       </span>
 
       <span
-        className={`text-xl font-extrabold tracking-tight ${
-          onPrimary ? "text-primary-foreground" : "text-foreground"
-        }`}
+        className={`text-xl font-extrabold tracking-tight ${onPrimary ? "text-primary-foreground" : "text-foreground"
+          }`}
       >
         Pocketa
       </span>
@@ -259,9 +255,8 @@ function Field({
 
       <div className="group/field relative mt-2">
         <span
-          className={`pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-            error ? "text-danger" : "text-muted group-focus-within/field:text-primary"
-          }`}
+          className={`pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 ${error ? "text-danger" : "text-muted group-focus-within/field:text-primary"
+            }`}
         >
           {icon}
         </span>
@@ -281,20 +276,17 @@ function Field({
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
           placeholder={placeholder}
-          className={`block w-full rounded-xl border bg-background py-3 pl-11 text-base text-foreground outline-none transition duration-200 placeholder:text-muted/70 focus:ring-4 sm:text-sm ${
-            trailing ? "pr-20" : "pr-11"
-          } ${
-            error
+          className={`block w-full rounded-xl border bg-background py-3 pl-11 text-base text-foreground outline-none transition duration-200 placeholder:text-muted/70 focus:ring-4 sm:text-sm ${trailing ? "pr-20" : "pr-11"
+            } ${error
               ? "border-danger focus:ring-danger/15"
               : "border-border focus:border-primary focus:ring-primary/15"
-          }`}
+            }`}
         />
 
         {valid && (
           <span
-            className={`lg-pop absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-success/15 text-success ${
-              trailing ? "right-12" : "right-4"
-            }`}
+            className={`lg-pop absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-success/15 text-success ${trailing ? "right-12" : "right-4"
+              }`}
           >
             {icons.check}
           </span>
@@ -325,7 +317,7 @@ function VisibilityToggle({
     <button
       type="button"
       onClick={onToggle}
-      aria-label={shown ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
+      aria-label={shown ? "Hide password" : "Show password"}
       aria-pressed={shown}
       className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-muted outline-none transition hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary active:scale-90"
     >
@@ -364,15 +356,15 @@ function ShowcasePanel({
           className="lg-rise max-w-md text-4xl font-black leading-[1.12] tracking-tight xl:text-5xl"
           style={{ animationDelay: "200ms" }}
         >
-          Uangmu, akhirnya tertata di satu tempat yang tenang.
+          Your money, finally organized in one calm place.
         </h2>
 
         <p
           className="lg-rise mt-5 max-w-sm text-sm opacity-85 xl:text-base"
           style={{ animationDelay: "300ms" }}
         >
-          Pendaftaran hanya butuh kurang dari semenit. Isi formulir dan lihat
-          akunmu terbentuk.
+          Signing up takes less than a minute. Fill in the form and watch your
+          account take shape.
         </p>
 
         <div
@@ -413,14 +405,14 @@ function ShowcasePanel({
 
               <div className="min-w-0">
                 <p className="text-xs font-medium opacity-80">
-                  {complete ? "Siap digunakan" : "Sedang disiapkan"}
+                  {complete ? "Ready to use" : "Setting up"}
                 </p>
                 <p
                   key={firstName}
                   className="lg-rise truncate text-lg font-extrabold"
                   style={{ animationDuration: "400ms" }}
                 >
-                  {firstName ? `Hai, ${firstName}` : "Hai"}
+                  {firstName ? `Hi, ${firstName}` : "Hi"}
                 </p>
               </div>
             </div>
@@ -429,14 +421,12 @@ function ShowcasePanel({
               {steps.map((step) => (
                 <li
                   key={step.label}
-                  className={`flex items-center gap-2.5 text-xs transition-opacity duration-300 ${
-                    step.done ? "opacity-100" : "opacity-60"
-                  }`}
+                  className={`flex items-center gap-2.5 text-xs transition-opacity duration-300 ${step.done ? "opacity-100" : "opacity-60"
+                    }`}
                 >
                   <span
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
-                      step.done ? "scale-100 bg-white text-primary" : "scale-90 bg-white/20"
-                    }`}
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${step.done ? "scale-100 bg-white text-primary" : "scale-90 bg-white/20"
+                      }`}
                   >
                     {step.done && (
                       <span className="lg-pop flex">{icons.check}</span>
@@ -452,11 +442,11 @@ function ShowcasePanel({
 
           <div className="lg-float-delayed absolute bottom-0 right-0 w-64 rounded-2xl border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-xl">
             <div className="flex items-baseline justify-between">
-              <p className="text-sm font-semibold">Dana darurat</p>
+              <p className="text-sm font-semibold">Emergency fund</p>
               <p className="text-xs font-bold tabular-nums">62%</p>
             </div>
             <p className="mt-0.5 text-xs opacity-80">
-              {formatRupiah(12_500_000)} dari {formatRupiah(20_000_000)}
+              {formatRupiah(12_500_000)} of {formatRupiah(20_000_000)}
             </p>
             <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/20">
               <div className="lg-grow h-full w-[62%] origin-left rounded-full bg-white" />
@@ -466,7 +456,7 @@ function ShowcasePanel({
       </div>
 
       <p className="relative text-xs opacity-70" suppressHydrationWarning>
-        © {new Date().getFullYear()} Pocketa. Hak cipta dilindungi.
+        © {new Date().getFullYear()} Pocketa. All rights reserved.
       </p>
     </aside>
   );
@@ -510,10 +500,10 @@ export default function RegisterPage() {
   const strength = !password ? 0 : !passwordValid ? 1 : Math.max(1, metCount);
 
   const steps: Step[] = [
-    { label: "Isi nama kamu", done: nameValid },
-    { label: "Tambahkan email yang valid", done: emailValid },
-    { label: "Buat kata sandi", done: passwordValid },
-    { label: "Konfirmasi kata sandi", done: passwordValid && confirmMatches },
+    { label: "Enter your name", done: nameValid },
+    { label: "Add a valid email", done: emailValid },
+    { label: "Create a password", done: passwordValid },
+    { label: "Confirm your password", done: passwordValid && confirmMatches },
   ];
   const progress = steps.filter((step) => step.done).length / steps.length;
   const firstName = name.trim().split(/\s+/)[0] ?? "";
@@ -529,27 +519,27 @@ export default function RegisterPage() {
     setError("");
 
     if (!nameValid) {
-      showError("Silakan masukkan nama kamu.");
+      showError("Please enter your name.");
       nameRef.current?.focus();
       return;
     }
 
     if (!emailValid) {
       setEmailTouched(true);
-      showError("Silakan masukkan alamat email yang valid.");
+      showError("Please enter a valid email address.");
       emailRef.current?.focus();
       return;
     }
 
     if (!passwordValid) {
-      showError(`Kata sandi minimal ${MIN_PASSWORD} karakter.`);
+      showError(`Password must be at least ${MIN_PASSWORD} characters.`);
       passwordRef.current?.focus();
       return;
     }
 
     if (password !== confirmPassword) {
       setConfirmTouched(true);
-      showError("Kata sandi tidak cocok.");
+      showError("Passwords do not match.");
       confirmRef.current?.focus();
       return;
     }
@@ -568,7 +558,7 @@ export default function RegisterPage() {
       setSuccess(true);
       router.push("/dashboard");
     } catch (err) {
-      showError(err instanceof Error ? err.message : "Pendaftaran gagal");
+      showError(err instanceof Error ? err.message : "Registration failed");
       setLoading(false);
     }
   }
@@ -690,14 +680,14 @@ export default function RegisterPage() {
                   className="lg-rise text-3xl font-black tracking-tight text-foreground"
                   style={{ animationDelay: "250ms" }}
                 >
-                  Buat akun
+                  Create account
                 </h1>
 
                 <p
                   className="lg-rise mt-2 text-sm text-muted"
                   style={{ animationDelay: "320ms" }}
                 >
-                  Masukkan data kamu di bawah ini untuk mulai mengelola keuanganmu.
+                  Enter your details below to start managing your finances.
                 </p>
 
                 {error && (
@@ -714,13 +704,13 @@ export default function RegisterPage() {
                 <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-5">
                   <Field
                     id="name"
-                    label="Nama"
+                    label="Name"
                     icon={icons.user}
                     value={name}
                     onChange={setName}
                     inputRef={nameRef}
                     autoComplete="name"
-                    placeholder="Nama kamu"
+                    placeholder="Your name"
                     valid={nameValid}
                     delay={380}
                   />
@@ -736,15 +726,15 @@ export default function RegisterPage() {
                     inputRef={emailRef}
                     onBlur={() => setEmailTouched(true)}
                     autoComplete="email"
-                    placeholder="kamu@contoh.com"
+                    placeholder="you@example.com"
                     valid={emailValid}
-                    error={showEmailError ? "Silakan masukkan alamat email yang valid." : undefined}
+                    error={showEmailError ? "Please enter a valid email address." : undefined}
                     delay={440}
                   />
 
                   <Field
                     id="password"
-                    label="Kata sandi"
+                    label="Password"
                     type={showPassword ? "text" : "password"}
                     icon={icons.lock}
                     value={password}
@@ -764,9 +754,8 @@ export default function RegisterPage() {
                     }
                   >
                     <div
-                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                        password ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                      }`}
+                      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${password ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <div className="pt-3">
@@ -775,9 +764,8 @@ export default function RegisterPage() {
                               {[1, 2, 3, 4].map((segment) => (
                                 <span
                                   key={segment}
-                                  className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                                    segment <= strength ? STRENGTH_COLORS[strength] : "bg-border"
-                                  }`}
+                                  className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${segment <= strength ? STRENGTH_COLORS[strength] : "bg-border"
+                                    }`}
                                 />
                               ))}
                             </div>
@@ -786,7 +774,7 @@ export default function RegisterPage() {
                               className={`w-20 text-right text-xs font-semibold transition-colors ${STRENGTH_TEXT[strength]}`}
                               aria-live="polite"
                             >
-                              {passwordValid ? STRENGTH_LABELS[strength] : "Terlalu pendek"}
+                              {passwordValid ? STRENGTH_LABELS[strength] : "Too short"}
                             </span>
                           </div>
 
@@ -794,11 +782,10 @@ export default function RegisterPage() {
                             {rules.map((rule) => (
                               <li
                                 key={rule.label}
-                                className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors duration-300 ${
-                                  rule.met
+                                className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors duration-300 ${rule.met
                                     ? "border-success/30 bg-success/10 text-success"
                                     : "border-border text-muted"
-                                }`}
+                                  }`}
                               >
                                 {rule.met && (
                                   <span className="lg-pop flex scale-75">{icons.check}</span>
@@ -817,14 +804,14 @@ export default function RegisterPage() {
                         className="lg-pop mt-2 flex items-center gap-1.5 text-xs font-medium text-amber-500"
                       >
                         {icons.alert}
-                        Caps Lock aktif
+                        Caps Lock is on
                       </p>
                     )}
                   </Field>
 
                   <Field
                     id="confirmPassword"
-                    label="Konfirmasi kata sandi"
+                    label="Confirm password"
                     type={showConfirm ? "text" : "password"}
                     icon={icons.shield}
                     value={confirmPassword}
@@ -838,7 +825,7 @@ export default function RegisterPage() {
                     autoComplete="new-password"
                     placeholder="••••••••"
                     valid={confirmMatches}
-                    error={showConfirmError ? "Kata sandi tidak cocok." : undefined}
+                    error={showConfirmError ? "Passwords do not match." : undefined}
                     delay={560}
                     trailing={
                       <VisibilityToggle
@@ -852,27 +839,26 @@ export default function RegisterPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className={`lg-btn relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-4 py-3.5 text-sm font-semibold shadow-lg outline-none transition duration-300 focus-visible:ring-4 focus-visible:ring-primary/30 enabled:hover:-translate-y-0.5 enabled:hover:shadow-xl enabled:active:translate-y-0 enabled:active:scale-[0.98] disabled:cursor-not-allowed motion-reduce:transform-none ${
-                        success
+                      className={`lg-btn relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-4 py-3.5 text-sm font-semibold shadow-lg outline-none transition duration-300 focus-visible:ring-4 focus-visible:ring-primary/30 enabled:hover:-translate-y-0.5 enabled:hover:shadow-xl enabled:active:translate-y-0 enabled:active:scale-[0.98] disabled:cursor-not-allowed motion-reduce:transform-none ${success
                           ? "bg-success text-white"
                           : "bg-primary text-primary-foreground disabled:opacity-80"
-                      }`}
+                        }`}
                     >
                       {success ? (
                         <>
                           <span className="lg-pop flex h-5 w-5 items-center justify-center rounded-full bg-white/25">
                             {icons.check}
                           </span>
-                          Akun berhasil dibuat!
+                          Account created!
                         </>
                       ) : loading ? (
                         <>
                           <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                          Membuat akun...
+                          Creating account...
                         </>
                       ) : (
                         <>
-                          Buat Akun
+                          Create Account
                           {icons.arrow}
                         </>
                       )}
@@ -884,12 +870,12 @@ export default function RegisterPage() {
                   className="lg-rise mt-6 text-center text-sm text-muted"
                   style={{ animationDelay: "700ms" }}
                 >
-                  Sudah punya akun?{" "}
+                  Already have an account?{" "}
                   <Link
                     href="/login"
                     className="font-semibold text-primary underline-offset-4 transition hover:underline"
                   >
-                    Masuk
+                    Sign in
                   </Link>
                 </p>
               </div>
