@@ -264,7 +264,7 @@ A compatible MySQL database must also be configured for the backend.
 ### 1. Clone the Repository
 
 ```bash
-git clone (https://github.com/deadbttrfly/pocketa.git)
+git clone https://github.com/deadbttrfly/pocketa.git
 cd pocketa-web
 ```
 
